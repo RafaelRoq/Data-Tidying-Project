@@ -9,40 +9,35 @@
 
 library(shiny)
 
+list_choices <- c("Population","PopDens","NetMigration", "InfantMortality","GDP","Literacy",
+                  "Birthrate","Deathrate")
+
 # Define UI for application that draws a histogram
-ui <- fluidPage(
-   
-   # Application title
-   titlePanel("Old Faithful Geyser Data"),
-   
-   # Sidebar with a slider input for number of bins 
-   sidebarLayout(
-      sidebarPanel(
-         sliderInput("bins",
-                     "Number of bins:",
-                     min = 1,
-                     max = 50,
-                     value = 30)
-      ),
-      
+ui <- navbarPage("Countries of the World",
+   tabPanel("Global map",
+      fluidPage( 
+        selectInput(
+          inputId="worldMapFactor",
+          label = h3("Select factor to display in the map"),
+          choices = list_choices
+        ),
+
       # Show a plot of the generated distribution
-      mainPanel(
-         plotOutput("distPlot")
+              mainPanel(
+                tabsetPanel(id="worldMapPanel",
+                            tabPanel("World Map", plotOutput("worldMap"), height="560px", width="950px")
+                )
+        )
       )
    )
 )
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-   
-   output$distPlot <- renderPlot({
-      # generate bins based on input$bins from ui.R
-      x    <- faithful[, 2] 
-      bins <- seq(min(x), max(x), length.out = input$bins + 1)
-      
-      # draw the histogram with the specified number of bins
-      hist(x, breaks = bins, col = 'darkgray', border = 'white')
-   })
+  output$worldMap <- renderPlot({
+    mapPolys(myWorldMap,nameColumnToPlot = input$worldMapFactor)
+  })
+  
 }
 
 # Run the application 

@@ -52,4 +52,26 @@ data$Other[is.na(data$Other)]<- median(data$Other, na.rm = TRUE)
 data[data$Climate=="1,5",]$Climate <- "2"
 data[data$Climate=="2,5",]$Climate <- "3"
 
+##Change names of countries to match the database (maps)
+data$Country <- as.character(data$Country)
+data[data$Country=="Congo, Repub. of the ",]$Country <- "Republic of Congo"
 
+dataForMap<-data[!(data$Country %in% c("Antigua & Barbuda ","Gaza Strip ","Gibraltar ",
+                         "British Virgin Is. ","Gaza Strip ",
+                         "Gibraltar ","Guadeloupe ","Martinique ","Mayotte ",
+                         "Micronesia, Fed. St. ","Netherlands Antilles ",
+                         "N. Mariana Islands ","Reunion ","St Pierre & Miquelon ",
+                         "Trinidad & Tobago ","Turks & Caicos Is ","Bosnia & Herzegovina ")),]
+
+
+
+
+
+data$Country <- as.factor(data$Country)
+
+library(rworldmap)
+
+myWorldMap <- joinCountryData2Map(dataForMap, nameJoinColumn = "Country", joinCode="NAME",verbose = TRUE)
+
+
+mapCountryData(myWorldMap, nameColumnToPlot = "Population")
