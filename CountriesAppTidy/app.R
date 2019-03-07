@@ -9,7 +9,7 @@
 
 library(shiny)
 
-list_choices <- c("Population","PopDens","NetMigration", "InfantMortality","GDP","Literacy",
+categories_worldMap <- c("Population","PopDens","NetMigration", "InfantMortality","GDP","Literacy",
                   "Birthrate","Deathrate")
 
 # Define UI for application that draws a histogram
@@ -18,18 +18,21 @@ ui <- navbarPage("Countries of the World",
       fluidPage( 
         selectInput(
           inputId="worldMapFactor",
-          label = h3("Select factor to display in the map"),
-          choices = list_choices
+          label = h3("Select category to display in the map"),
+          choices = categories_worldMap
         ),
 
       # Show a plot of the generated distribution
               mainPanel(
                 tabsetPanel(id="worldMapPanel",
                             tabPanel("World Map", plotOutput("worldMap"), height="560px", width="950px")
-                )
-        )
-      )
-   )
+                ) #tabsetPanel
+              ) #mainPanel
+      ) #fluidPage
+   ), #tabPanel
+   tabPanel("References",
+            includeMarkdown("references.md")
+   ) #tabPanel
 )
 
 # Define server logic required to draw a histogram
