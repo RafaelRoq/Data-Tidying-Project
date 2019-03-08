@@ -75,3 +75,5 @@ myWorldMap <- joinCountryData2Map(dataForMap, nameJoinColumn = "Country", joinCo
 
 
 mapCountryData(myWorldMap, nameColumnToPlot = "Population")
+
+levels(data$Country)=gsub(" ","",levels(data$Country))
