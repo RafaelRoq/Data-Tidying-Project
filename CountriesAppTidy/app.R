@@ -49,7 +49,34 @@ ui <- navbarPage("Countries of the World",
    ###########################################################################################
    ##Here starts the next tab
    
-   
+   tabPanel("Classification by countries",
+            fluidPage( 
+             
+              
+              # Show a plot of the generated distribution
+              mainPanel(
+                tabsetPanel(id="countryPanel1",
+                            plotOutput()
+                ), #tabsetPanel
+                
+                tabsetPanel(id="countryPanel2",
+                            plotOutput()
+                ), #tabsetPanel
+                
+                tabsetPanel(id="countryPanel3",
+                            plotOutput()
+                ), #tabsetPanel
+                
+                tabsetPanel(id="countryPanel4",
+                            plotOutput()
+                ), #tabsetPanel
+                
+                tabsetPanel(id="countryPanel5",
+                            plotOutput()
+                ) #tabsetPanel
+              )
+            ) #fluidPage
+   ),#tabPanel
    ###########################################################################################
    
    ##References tab
@@ -61,7 +88,6 @@ ui <- navbarPage("Countries of the World",
 # Define server logic required to draw a histogram
 server <- function(input, output) {
   ###########################################################################################
-  
   
   ##Functions for the first tab: World Map
   output$worldMap <- renderPlot({
@@ -79,7 +105,10 @@ server <- function(input, output) {
   })
   ##Functions for the first tab ends
   ###########################################################################################
+  ##Functions for the second tab: Classification by countries
   
+  ##Functions for the second tab ends
+  ###########################################################################################
   
 }
 
