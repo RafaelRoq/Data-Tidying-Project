@@ -16,41 +16,108 @@ data <- read.csv("countries of the world.csv")
 
 
 library(shiny)
+library(shinyjs)
+
+source("Countries clean proc.R")
+
+categories_worldMap <- c("Population","PopDens","NetMigration", "InfantMortality","GDP","Literacy",
+                  "Birthrate","Deathrate")
 
 # Define UI for application that draws a histogram
-ui <- fluidPage(
-   
-   # Application title
-   titlePanel("Old Faithful Geyser Data"),
-   
-   # Sidebar with a slider input for number of bins 
-   sidebarLayout(
-      sidebarPanel(
-         sliderInput("bins",
-                     "Number of bins:",
-                     min = 1,
-                     max = 50,
-                     value = 30)
-      ),
-      
+ui <- navbarPage("Countries of the World",
+                 
+                 
+   ##First tab panel: Global map
+   tabPanel("Global map",
+      fluidPage( 
+        useShinyjs(),  # Set up shinyjs
+        selectInput(
+          inputId="worldMapFactor",
+          label = h3("Select category to display in the map"),
+          choices = categories_worldMap
+        ),
+
       # Show a plot of the generated distribution
-      mainPanel(
-         plotOutput("distPlot")
-      )
-   )
+              mainPanel(
+                
+                tabsetPanel(id="worldMapPanel",
+                            tabPanel("World Map", plotOutput("worldMap"), height="560px", width="950px")
+                ), #tabsetPanel
+                
+               h3(textOutput("factorExplanation"))
+                
+              ), #mainPanel
+      
+      
+      actionButton("btn", "What is each factor?")
+
+      
+      ) #fluidPage
+   ), #tabPanel
+   ###########################################################################################
+   ##Here starts the next tab
+   
+   tabPanel("Classification by countries",
+            fluidPage( 
+             
+              
+              # Show a plot of the generated distribution
+              mainPanel(
+                tabsetPanel(id="countryPanel1",
+                            plotOutput()
+                ), #tabsetPanel
+                
+                tabsetPanel(id="countryPanel2",
+                            plotOutput()
+                ), #tabsetPanel
+                
+                tabsetPanel(id="countryPanel3",
+                            plotOutput()
+                ), #tabsetPanel
+                
+                tabsetPanel(id="countryPanel4",
+                            plotOutput()
+                ), #tabsetPanel
+                
+                tabsetPanel(id="countryPanel5",
+                            plotOutput()
+                ) #tabsetPanel
+              )
+            ) #fluidPage
+   ),#tabPanel
+   ###########################################################################################
+   
+   ##References tab
+   tabPanel("References",
+            includeMarkdown("references.md")
+   ) #tabPanel
 )
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-   
-   output$distPlot <- renderPlot({
-      # generate bins based on input$bins from ui.R
-      x    <- faithful[, 2] 
-      bins <- seq(min(x), max(x), length.out = input$bins + 1)
-      
-      # draw the histogram with the specified number of bins
-      hist(x, breaks = bins, col = 'darkgray', border = 'white')
-   })
+  ###########################################################################################
+  
+  ##Functions for the first tab: World Map
+  output$worldMap <- renderPlot({
+    mapPolys(myWorldMap,nameColumnToPlot = input$worldMapFactor)
+  })
+  
+  observeEvent(input$btn, {
+    # Change the following line for more examples
+    output$factorExplanation <- cat(paste("Population: total of inhabitants in each country",
+              "PopDens: Inhabitants per square mile",
+              "NetMigration: Difference between inmigration and migration", sep="\n"))
+    
+    toggle("worldMapPanel")
+    toggle("worldMap")
+  })
+  ##Functions for the first tab ends
+  ###########################################################################################
+  ##Functions for the second tab: Classification by countries
+  
+  ##Functions for the second tab ends
+  ###########################################################################################
+  
 }
 
 # Run the application 
