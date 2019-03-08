@@ -17,6 +17,8 @@ data <- read.csv("countries of the world.csv")
 
 library(shiny)
 library(shinyjs)
+library(ggplot2)
+library(gridExtra)
 
 source("Countries clean proc.R")
 
@@ -60,34 +62,19 @@ ui <- navbarPage("Countries of the World",
    tabPanel("Classification by countries",
             fluidPage( 
               useShinyjs(),  # Set up shinyjs
-              selectInput(
-                inputId="countrySelector",
-                label = h3("Select countries to display"),
-                choices = unique(data$Country)
-              ),
+              selectInput(inputId="countrySelector1",label = h3("Select country to display"),choices = unique(data$Country)),
+              selectInput(inputId="countrySelector2",label=NULL,choices = unique(data$Country)),
+              selectInput(inputId="countrySelector3",label=NULL,choices = unique(data$Country)),
+              selectInput(inputId="countrySelector4",label=NULL,choices = unique(data$Country)),
+              selectInput(inputId="countrySelector5",label=NULL,choices = unique(data$Country)),
               
               # Show a plot of the generated distribution
               mainPanel(
-                tabsetPanel(id="countryPanel1",
-                            tabPanel(plotOutput("country1"))
-                ) #tabsetPanel
-                
-                # tabsetPanel(id="countryPanel2",
-                            #    plotOutput()
-                            # ), #tabsetPanel
-                
-                # tabsetPanel(id="countryPanel3",
-                            #           plotOutput()
-                            # ), #tabsetPanel
-                
-                #  tabsetPanel(id="countryPanel4",
-                            ##            plotOutput()
-                            # ), #tabsetPanel
-                
-                # tabsetPanel(id="countryPanel5",
-                            #           plotOutput()
-                            # ) #tabsetPanel
-                 )
+                plotOutput(outputId = "country1")
+                #tabsetPanel(id="countryPanel1",
+                 #           tabPanel("Countries",plotOutput(outputId = "country1"))
+                #)# tabsetPanel
+              ) 
             ) #fluidPage
    ),#tabPanel
    ###########################################################################################
@@ -120,7 +107,22 @@ server <- function(input, output) {
   ###########################################################################################
   ##Functions for the second tab: Classification by countries
   output$country1 <- renderPlot({
-    hist(data[data$Country==input$countrySelector,]$GDP)
+    
+    
+    countriesSelected<-(data$Country == input$countrySelector1)|(data$Country == input$countrySelector2)|
+      (data$Country == input$countrySelector3)|(data$Country == input$countrySelector4)|(data$Country == input$countrySelector5)
+    plot1<-ggplot(data[countriesSelected, ],
+                  aes(x=Country, y=GDP)) +geom_bar(stat = "identity")
+    
+    plot2<-ggplot(data[countriesSelected, ],
+                  aes(x=Country, y=Population)) +geom_bar(stat = "identity")
+    
+    plot3 <- ggplot(data[countriesSelected, ],
+                    aes(x=Country, y=Literacy)) +geom_bar(stat = "identity")
+    plot4 <- ggplot(data[countriesSelected, ],
+                    aes(x=Country, y=NetMigration)) +geom_bar(stat = "identity")
+    grid.arrange(plot1,plot2,plot3,plot4, nrow = 2, ncol=2)
+    
   })
   
   
