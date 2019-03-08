@@ -59,30 +59,35 @@ ui <- navbarPage("Countries of the World",
    
    tabPanel("Classification by countries",
             fluidPage( 
-             
+              useShinyjs(),  # Set up shinyjs
+              selectInput(
+                inputId="countrySelector",
+                label = h3("Select countries to display"),
+                choices = unique(data$Country)
+              ),
               
               # Show a plot of the generated distribution
               mainPanel(
                 tabsetPanel(id="countryPanel1",
-                            plotOutput()
-                ), #tabsetPanel
-                
-                tabsetPanel(id="countryPanel2",
-                            plotOutput()
-                ), #tabsetPanel
-                
-                tabsetPanel(id="countryPanel3",
-                            plotOutput()
-                ), #tabsetPanel
-                
-                tabsetPanel(id="countryPanel4",
-                            plotOutput()
-                ), #tabsetPanel
-                
-                tabsetPanel(id="countryPanel5",
-                            plotOutput()
+                            tabPanel(plotOutput("country1"))
                 ) #tabsetPanel
-              )
+                
+                # tabsetPanel(id="countryPanel2",
+                            #    plotOutput()
+                            # ), #tabsetPanel
+                
+                # tabsetPanel(id="countryPanel3",
+                            #           plotOutput()
+                            # ), #tabsetPanel
+                
+                #  tabsetPanel(id="countryPanel4",
+                            ##            plotOutput()
+                            # ), #tabsetPanel
+                
+                # tabsetPanel(id="countryPanel5",
+                            #           plotOutput()
+                            # ) #tabsetPanel
+                 )
             ) #fluidPage
    ),#tabPanel
    ###########################################################################################
@@ -114,6 +119,12 @@ server <- function(input, output) {
   ##Functions for the first tab ends
   ###########################################################################################
   ##Functions for the second tab: Classification by countries
+  output$country1 <- renderPlot({
+    hist(data[data$Country==input$countrySelector,]$GDP)
+  })
+  
+  
+  
   
   ##Functions for the second tab ends
   ###########################################################################################
