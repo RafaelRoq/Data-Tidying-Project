@@ -1,5 +1,3 @@
-
-
 data <- read.csv("countries of the world.csv")
 
 ##First clean the data
@@ -76,4 +74,7 @@ myWorldMap <- joinCountryData2Map(dataForMap, nameJoinColumn = "Country", joinCo
 
 mapCountryData(myWorldMap, nameColumnToPlot = "Population")
 
-levels(data$Country)=gsub(" ","",levels(data$Country))
+levels(data$Country)=gsub(" $","",levels(data$Country)) 
+levels(data$Region)=c("ASIA (EX. NEAR EAST)","BALTICS","C.W. OF IND. STATES",
+                      "EASTERN EUROPE","LATIN AMER. & CARIB","NEAR EAST","NORTHERN AFRICA",
+                      "NORTHERN AMERICA","OCEANIA","SUB-SAHARAN AFRICA","WESTERN EUROPE")

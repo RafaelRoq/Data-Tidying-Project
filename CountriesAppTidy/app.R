@@ -56,6 +56,28 @@ ui <- navbarPage("Countries of the World",
       
       ) #fluidPage
    ), #tabPanel
+   
+   ###########################################################################################
+   ##Here starts the next tab of regions
+   
+   tabPanel("Regions",
+            fluidPage( 
+              useShinyjs(),  # Set up shinyjs
+              selectInput(inputId="region1",label = "Region 1",choices = unique(data$Region)),
+              selectInput(inputId="region2",label="Region 2",choices = unique(data$Region)),
+              selectInput(inputId="region3",label="Region 3",choices = unique(data$Region)),
+              selectInput(inputId="region4",label="Region ",choices = unique(data$Region)),
+              
+              # Show a plot of the generated distribution
+              mainPanel(
+                plotOutput(outputId = "regions")
+                #tabsetPanel(id="countryPanel1",
+                #           tabPanel("Countries",plotOutput(outputId = "country1"))
+                #)# tabsetPanel
+              ) 
+            ) #fluidPage
+   ),#tabPanel
+   ###########################################################################################
    ###########################################################################################
    ##Here starts the next tab
    
