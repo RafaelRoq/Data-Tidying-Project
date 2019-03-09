@@ -240,6 +240,32 @@ server <- function(input, output) {
       theme(axis.text.x=element_blank()) +
       guides(fill=guide_legend(title=paste("Sectors of",input$region3)))
     
+    ######################Region 4
+    
+    r4= data %>% filter(Region==input$region4) %>% 
+      select(Region,Agriculture,Industry,Service)
+    r4=aggregate(cbind(Agriculture,Industry,Service)~Region,
+                 FUN=sum,data=r4)[,-1]
+    r4=data.frame(t(r4))
+    colnames(r4)=c("c1")
+    
+    plot4=ggplot(r4, aes(x="", y=c1, fill=rownames(r4)))+
+      geom_bar(width = 1, stat = "identity")+
+      coord_polar("y",start = 0)+
+      theme_minimal()+
+      theme(
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        panel.border = element_blank(),
+        panel.grid=element_blank(),
+        axis.ticks = element_blank(),
+        plot.title=element_text(size=14, face="bold")
+      )+
+      theme(axis.text.x=element_blank()) +
+      guides(fill=guide_legend(title=paste("Sectors of",input$region4)))
+    
+    
+    
     
   })
 
