@@ -264,6 +264,8 @@ server <- function(input, output) {
       theme(axis.text.x=element_blank()) +
       guides(fill=guide_legend(title=paste("Sectors of",input$region4)))
     
+    grid.arrange(plot1,plot2,plot3,plot4, nrow = 2, ncol=2)
+    
     
     
     
