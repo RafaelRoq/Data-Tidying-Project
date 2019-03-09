@@ -23,8 +23,6 @@ categories_worldMap <- c("Population","PopDens","NetMigration", "InfantMortality
 
 # Define UI for application that draws a histogram
 ui <- navbarPage("Countries of the World",
-                 
-                 
    ##First tab panel: Global map
    tabPanel("Global map",
       fluidPage( 
@@ -34,27 +32,15 @@ ui <- navbarPage("Countries of the World",
           label = h3("Select category to display in the map"),
           choices = categories_worldMap
         ),
-
       # Show a plot of the generated distribution
-      
               mainPanel(
                 actionButton("btn", "What is each variable?"),
                 plotOutput("worldMap", height="700px", width="800px"),
-                            
-                            
                  #tabsetPanel
                 hidden( ##Hidden text by default, make it visible with toggle()
                   verbatimTextOutput("factorExplanation")
                 )
-               
-               
-                
               ) #mainPanel
-      
-      
-      
-
-      
       ) #fluidPage
    ), #tabPanel
    
@@ -107,7 +93,6 @@ ui <- navbarPage("Countries of the World",
             includeMarkdown("references.md")
    ) #tabPanel
 )
-
 # Define server logic required to draw a histogram
 server <- function(input, output) {
   ###########################################################################################
@@ -116,8 +101,6 @@ server <- function(input, output) {
   output$worldMap <- renderPlot({
     mapPolys(myWorldMap,nameColumnToPlot = input$worldMapFactor)
   })
-  
-
   
   output$factorExplanation <- renderText({
     paste(
@@ -132,9 +115,6 @@ server <- function(input, output) {
       "Birthrate: Births per 1000 population in a year",
       "Deathrate: Deaths per 1000 population in a year"
       , sep="\n")
-    
-    
-    
   })
   
   observeEvent(input$btn, {
@@ -146,8 +126,6 @@ server <- function(input, output) {
   ###########################################################################################
   ##Functions for the second tab: Classification by countries
   output$country1 <- renderPlot({
-    
-    
     countriesSelected<-(data$Country == input$countrySelector1)|(data$Country == input$countrySelector2)|
       (data$Country == input$countrySelector3)|(data$Country == input$countrySelector4)|(data$Country == input$countrySelector5)
     plot1<-ggplot(data[countriesSelected, ],
@@ -161,12 +139,7 @@ server <- function(input, output) {
     plot4 <- ggplot(data[countriesSelected, ],
                     aes(x=Country, y=NetMigration)) +geom_bar(stat = "identity")
     grid.arrange(plot1,plot2,plot3,plot4, nrow = 2, ncol=2)
-    
   })
-  
-  
-  
-  
   ##Functions for the second tab ends
   ###########################################################################################
   
