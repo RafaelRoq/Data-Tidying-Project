@@ -1,3 +1,5 @@
+#setwd("C:/Users/josue/Documents/Shiny-regions/Regions")
+
 data <- read.csv("countries of the world.csv")
 
 ##First clean the data

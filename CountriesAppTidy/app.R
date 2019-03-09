@@ -9,7 +9,7 @@
 ##############################################################
 ###################### APP COUNTRIES #########################
 ##############################################################
-
+setwd("C:/Users/josue/Documents/Data-Tidying-Project/CountriesAppTidy")
 data <- read.csv("countries of the world.csv")
 
 
@@ -19,6 +19,9 @@ library(shiny)
 library(shinyjs)
 library(ggplot2)
 library(gridExtra)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
 
 source("Countries clean proc.R")
 
@@ -146,10 +149,33 @@ server <- function(input, output) {
     grid.arrange(plot1,plot2,plot3,plot4, nrow = 2, ncol=2)
     
   })
+  ###########################################################################################
+  ##Functions for the second tab: Classification by countries
+  output$country1 <- renderPlot({
+    
+    
+    countriesSelected<-(data$Country == input$countrySelector1)|(data$Country == input$countrySelector2)|
+      (data$Country == input$countrySelector3)|(data$Country == input$countrySelector4)|(data$Country == input$countrySelector5)
+    plot1<-ggplot(data[countriesSelected, ],
+                  aes(x=Country, y=GDP)) +geom_bar(stat = "identity")
+    
+    plot2<-ggplot(data[countriesSelected, ],
+                  aes(x=Country, y=Population)) +geom_bar(stat = "identity")
+    
+    plot3 <- ggplot(data[countriesSelected, ],
+                    aes(x=Country, y=Literacy)) +geom_bar(stat = "identity")
+    plot4 <- ggplot(data[countriesSelected, ],
+                    aes(x=Country, y=NetMigration)) +geom_bar(stat = "identity")
+    grid.arrange(plot1,plot2,plot3,plot4, nrow = 2, ncol=2)
+    
+  })
+  ###########################################################################################
+  ##Functions for the second tab: Classification by regions
   
-  
-  
-  
+  output$regions=renderPlot({
+    
+    
+  })
   ##Functions for the second tab ends
   ###########################################################################################
   
