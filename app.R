@@ -10,10 +10,6 @@
 ###################### APP COUNTRIES #########################
 ##############################################################
 
-data <- read.csv("countries of the world.csv")
-
-
-
 
 library(shiny)
 library(shinyjs)
@@ -133,7 +129,6 @@ server <- function(input, output) {
     
     countriesSelected<-(data$Country == input$countrySelector1)|(data$Country == input$countrySelector2)|
       (data$Country == input$countrySelector3)|(data$Country == input$countrySelector4)|(data$Country == input$countrySelector5)
-    print(colnames(data))
     plot1<-ggplot(data[countriesSelected, ],
                   aes(x=Country, y=GDP)) +geom_bar(stat = "identity")
     
