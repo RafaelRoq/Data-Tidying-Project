@@ -36,18 +36,23 @@ ui <- navbarPage("Countries of the World",
         ),
 
       # Show a plot of the generated distribution
+      
               mainPanel(
+                actionButton("btn", "What is each variable?"),
+                plotOutput("worldMap", height="700px", width="800px"),
+                            
+                            
+                 #tabsetPanel
+                hidden( ##Hidden text by default, make it visible with toggle()
+                  verbatimTextOutput("factorExplanation")
+                )
+               
+               
                 
-                tabsetPanel(id="worldMapPanel",
-                            tabPanel("World Map", plotOutput("worldMap"), height="560px", width="950px")
-                ), #tabsetPanel
-                
-               h3(textOutput("factorExplanation"))
-                
-              ), #mainPanel
+              ) #mainPanel
       
       
-      actionButton("btn", "What is each factor?")
+      
 
       
       ) #fluidPage
@@ -112,14 +117,30 @@ server <- function(input, output) {
     mapPolys(myWorldMap,nameColumnToPlot = input$worldMapFactor)
   })
   
+
+  
+  output$factorExplanation <- renderText({
+    paste(
+      "Click again in the button in order to show again the map",
+      "\n",
+      "Population: Total of inhabitants in each country", 
+      "PopDens: Population density per square mile",
+      "NetMigration: Difference between the number of inmigrats and emigrats",
+      "InfantMortality: Infant mortality per 1000 births", 
+      "GDP: Gross Domestic Product",
+      "Literacy: Percentage of alfabetism",
+      "Birthrate: Births per 1000 population in a year",
+      "Deathrate: Deaths per 1000 population in a year"
+      , sep="\n")
+    
+    
+    
+  })
+  
   observeEvent(input$btn, {
     # Change the following line for more examples
-    output$factorExplanation <- cat(paste("Population: total of inhabitants in each country",
-              "PopDens: Inhabitants per square mile",
-              "NetMigration: Difference between inmigration and migration", sep="\n"))
-    
-    toggle("worldMapPanel")
     toggle("worldMap")
+    toggle("factorExplanation")
   })
   ##Functions for the first tab ends
   ###########################################################################################
