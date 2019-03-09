@@ -167,6 +167,27 @@ server <- function(input, output) {
   ##Functions for the second tab: Classification by regions
   
   output$regions=renderPlot({
+    r1= data %>% filter(Region==input$region1) %>% 
+      select(Region,Agriculture,Industry,Service)
+    r1=aggregate(cbind(Agriculture,Industry,Service)~Region,
+                FUN=sum,data=r1)[,-1]
+    r1=data.frame(t(r1))
+    colnames(r1)=c("c1")
+    
+    ggplot(r1, aes(x="", y=c1, fill=rownames(r1)))+
+      geom_bar(width = 1, stat = "identity")+
+      coord_polar("y",start = 0)+
+      theme_minimal()+
+      theme(
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        panel.border = element_blank(),
+        panel.grid=element_blank(),
+        axis.ticks = element_blank(),
+        plot.title=element_text(size=14, face="bold")
+      )+
+      theme(axis.text.x=element_blank()) +
+      guides(fill=guide_legend(title=paste("Sectors of",input$region1)))
     
     
   })
