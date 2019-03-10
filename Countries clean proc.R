@@ -1,4 +1,6 @@
 #setwd("C:/Users/josue/Documents/Shiny-regions/Regions")
+library(rworldmap)
+
 
 data <- read.csv("countries of the world.csv")
 
@@ -69,7 +71,7 @@ dataForMap<-data[!(data$Country %in% c("Antigua & Barbuda ","Gaza Strip ","Gibra
 
 data$Country <- as.factor(data$Country)
 
-library(rworldmap)
+
 
 myWorldMap <- joinCountryData2Map(dataForMap, nameJoinColumn = "Country", joinCode="NAME",verbose = TRUE)
 
