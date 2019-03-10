@@ -18,6 +18,7 @@ library(gridExtra)
 library(tidyr)
 library(dplyr)
 
+library(markdown)
 source("Countries clean proc.R")
 
 categories_worldMap <- c("Population","PopDens","NetMigration", "InfantMortality","GDP","Literacy",
@@ -82,9 +83,6 @@ ui <- navbarPage("Countries of the World",
               # Show a plot of the generated distribution
               mainPanel(
                 plotOutput(outputId = "country1")
-                #tabsetPanel(id="countryPanel1",
-                 #           tabPanel("Countries",plotOutput(outputId = "country1"))
-                #)# tabsetPanel
               ) 
             ) #fluidPage
    ),#tabPanel

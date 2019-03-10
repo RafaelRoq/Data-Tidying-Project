@@ -1,0 +1,13 @@
+name: CountriesApp
+title: CountriesApp
+username:
+account: ralphdscience
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 779003
+bundleId: 1928648
+url: https://ralphdscience.shinyapps.io/CountriesApp/
+when: 1552226189.8228
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: README.md
