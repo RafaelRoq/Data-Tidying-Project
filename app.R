@@ -33,7 +33,8 @@ ui <- navbarPage("Countries of the World",
        
        # Show a plot of the generated distribution
        mainPanel(
-        
+        h3("This dataset describes some interesting topics (such as the demography, 
+           climate, or economic) of 227 countries")
          )
        ) #mainPanel
      ), #tabPage
