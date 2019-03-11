@@ -26,6 +26,8 @@ categories_worldMap <- c("Population","PopDens","NetMigration", "InfantMortality
 
 # Define UI for application that draws a histogram
 ui <- navbarPage("Countries of the World",
+                 
+   includeCSS("design.css"),
    ##First tab panel: Global map
    tabPanel("Overview of the data",
      fluidPage( 
