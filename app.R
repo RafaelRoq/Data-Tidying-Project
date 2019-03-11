@@ -27,6 +27,19 @@ categories_worldMap <- c("Population","PopDens","NetMigration", "InfantMortality
 # Define UI for application that draws a histogram
 ui <- navbarPage("Countries of the World",
    ##First tab panel: Global map
+   tabPanel("Overview of the data",
+     fluidPage( 
+       useShinyjs(),  # Set up shinyjs
+       
+       # Show a plot of the generated distribution
+       mainPanel(
+        
+         )
+       ) #mainPanel
+     ), #tabPage
+   
+   
+   
    tabPanel("Global map",
       fluidPage( 
         useShinyjs(),  # Set up shinyjs
@@ -91,6 +104,14 @@ ui <- navbarPage("Countries of the World",
    ##References tab
    tabPanel("References",
             includeMarkdown("references.md")
+   ), #tabPanel
+   
+   tabPanel("Case study",
+            fluidPage(
+              mainPanel(
+                textInput("test1",label=NULL)
+              )
+            )
    ) #tabPanel
 )
 # Define server logic required to draw a histogram
