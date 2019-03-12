@@ -28,6 +28,16 @@ categories_worldMap <- c("Population","PopDens","NetMigration", "InfantMortality
 ui <- navbarPage("Countries of the World",
                  
    ##First tab panel: Global map
+   
+   
+   tabPanel("Case study",
+            fluidPage(
+              mainPanel(
+                textInput("test1",label=NULL)
+              )
+            )
+   ), #tabPanel
+   
    tabPanel("Overview of the data",
      fluidPage( 
        includeCSS("design.css"),
@@ -120,13 +130,6 @@ ui <- navbarPage("Countries of the World",
    ###########################################################################################
    
    
-   tabPanel("Case study",
-            fluidPage(
-              mainPanel(
-                textInput("test1",label=NULL)
-              )
-            )
-   ), #tabPanel
    
    
    ##References tab
