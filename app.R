@@ -9,7 +9,7 @@
 ##############################################################
 ###################### APP COUNTRIES #########################
 ##############################################################
-#setwd("C:/Users/josue/Documents/Data-Tidying-Project/CountriesAppTidy")
+#setwd("C:/Users/josue/Documents/Data-Tidying-Project")
 #data <- read.csv("countries of the world.csv")
 library(shiny)
 library(shinyjs)
@@ -173,7 +173,7 @@ server <- function(input, output) {
     r1= data %>% filter(Region==input$region1) %>% 
       select(Region,Agriculture,Industry,Service)
     r1=aggregate(cbind(Agriculture,Industry,Service)~Region,
-                FUN=sum,data=r1)[,-1]
+                FUN=mean,data=r1)[,-1]
     r1=data.frame(t(r1))
     colnames(r1)=c("c1")
     
@@ -197,7 +197,7 @@ server <- function(input, output) {
     r2= data %>% filter(Region==input$region2) %>% 
       select(Region,Agriculture,Industry,Service)
     r2=aggregate(cbind(Agriculture,Industry,Service)~Region,
-                 FUN=sum,data=r2)[,-1]
+                 FUN=mean,data=r2)[,-1]
     r2=data.frame(t(r2))
     colnames(r2)=c("c1")
     
@@ -221,7 +221,7 @@ server <- function(input, output) {
     r3= data %>% filter(Region==input$region3) %>% 
       select(Region,Agriculture,Industry,Service)
     r3=aggregate(cbind(Agriculture,Industry,Service)~Region,
-                 FUN=sum,data=r3)[,-1]
+                 FUN=mean,data=r3)[,-1]
     r3=data.frame(t(r3))
     colnames(r3)=c("c1")
     
@@ -245,7 +245,7 @@ server <- function(input, output) {
     r4= data %>% filter(Region==input$region4) %>% 
       select(Region,Agriculture,Industry,Service)
     r4=aggregate(cbind(Agriculture,Industry,Service)~Region,
-                 FUN=sum,data=r4)[,-1]
+                 FUN=mean,data=r4)[,-1]
     r4=data.frame(t(r4))
     colnames(r4)=c("c1")
     
