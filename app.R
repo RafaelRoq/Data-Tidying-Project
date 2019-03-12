@@ -276,17 +276,20 @@ server <- function(input, output) {
     
     ######################Region 4
     
-    r4= data %>% filter(Region==input$region4) %>% 
-      select(Region,Agriculture,Industry,Service)
-    r4=aggregate(cbind(Agriculture,Industry,Service)~Region,
-                 FUN=mean,data=r4)[,-1]
-    r4=data.frame(t(r4))
-    colnames(r4)=c("c1")
+    r4=data %>% filter(Region==input$region4) %>% 
+      select(Agriculture,Industry,Service) %>% 
+      gather(`Agriculture`,`Industry`,`Service`,
+             key = "Sectors",value = "percentages")
     
-    plot4=ggplot(r4, aes(x="", y=c1, fill=rownames(r4)))+
-      geom_bar(width = 1, stat = "identity")+
-      coord_polar("y",start = 0)+
-      theme_minimal()+
+    r4=aggregate(percentages~Sectors,FUN=mean,data=r4) %>%
+      arrange(percentages) %>% mutate(cum=1-cumsum(percentages))
+    
+    r4_breaks <- r4$cum[r4$cum>0]
+    
+    plot4=ggplot(r4) +
+      coord_polar("y", start=0) +
+      geom_bar(aes(x="", y=percentages, fill=Sectors), stat = "identity") +
+      scale_y_continuous(labels = scales::percent, breaks = r4_breaks) +
       theme(
         axis.title.x = element_blank(),
         axis.title.y = element_blank(),
@@ -295,7 +298,8 @@ server <- function(input, output) {
         axis.ticks = element_blank(),
         plot.title=element_text(size=14, face="bold")
       )+
-      theme(axis.text.x=element_blank()) +
+      theme_minimal()+
+      ylab("")+xlab("")+
       guides(fill=guide_legend(title=paste("Sectors of",input$region4)))
     
     grid.arrange(plot1,plot2,plot3,plot4, nrow = 2, ncol=2)
