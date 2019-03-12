@@ -17,8 +17,8 @@ library(ggplot2)
 library(gridExtra)
 library(tidyr)
 library(dplyr)
-library(ggplot2)
 
+library(markdown)
 source("Countries clean proc.R")
 
 categories_worldMap <- c("Population","PopDens","NetMigration", "InfantMortality","GDP","Literacy",
@@ -26,7 +26,23 @@ categories_worldMap <- c("Population","PopDens","NetMigration", "InfantMortality
 
 # Define UI for application that draws a histogram
 ui <- navbarPage("Countries of the World",
+                 
    ##First tab panel: Global map
+   tabPanel("Overview of the data",
+     fluidPage( 
+       includeCSS("design.css"),
+       useShinyjs(),  # Set up shinyjs
+       
+       # Show a plot of the generated distribution
+       mainPanel(
+        h3("This dataset describes some interesting topics (such as the demography, 
+           climate, or economic) of 227 countries")
+         )
+       ) #mainPanel
+     ), #tabPage
+   
+   
+   
    tabPanel("Global map",
       fluidPage( 
         useShinyjs(),  # Set up shinyjs
@@ -48,7 +64,7 @@ ui <- navbarPage("Countries of the World",
    ), #tabPanel
    
    ###########################################################################################
-   ##Here starts the next tab of regions
+   ##Here starts the second tab: regions
    
    tabPanel("Regions",
             fluidPage( 
@@ -69,7 +85,7 @@ ui <- navbarPage("Countries of the World",
    ),#tabPanel
    ###########################################################################################
    ###########################################################################################
-   ##Here starts the next tab
+   ##Here starts the third tab: Classification by countries
    
    tabPanel("Classification by countries",
             fluidPage( 
@@ -83,9 +99,6 @@ ui <- navbarPage("Countries of the World",
               # Show a plot of the generated distribution
               mainPanel(
                 plotOutput(outputId = "country1")
-                #tabsetPanel(id="countryPanel1",
-                 #           tabPanel("Countries",plotOutput(outputId = "country1"))
-                #)# tabsetPanel
               ) 
             ) #fluidPage
    ),#tabPanel
@@ -94,6 +107,14 @@ ui <- navbarPage("Countries of the World",
    ##References tab
    tabPanel("References",
             includeMarkdown("references.md")
+   ), #tabPanel
+   
+   tabPanel("Case study",
+            fluidPage(
+              mainPanel(
+                textInput("test1",label=NULL)
+              )
+            )
    ) #tabPanel
 )
 # Define server logic required to draw a histogram
@@ -143,27 +164,6 @@ server <- function(input, output) {
                     aes(x=Country, y=NetMigration)) +geom_bar(stat = "identity")
     grid.arrange(plot1,plot2,plot3,plot4, nrow = 2, ncol=2)
   })
-  ###########################################################################################
-  ##Functions for the second tab: Classification by countries
-  output$country1 <- renderPlot({
-    
-    
-    countriesSelected<-(data$Country == input$countrySelector1)|(data$Country == input$countrySelector2)|
-      (data$Country == input$countrySelector3)|(data$Country == input$countrySelector4)|(data$Country == input$countrySelector5)
-    plot1<-ggplot(data[countriesSelected, ],
-                  aes(x=Country, y=GDP)) +geom_bar(stat = "identity")
-    
-    plot2<-ggplot(data[countriesSelected, ],
-                  aes(x=Country, y=Population)) +geom_bar(stat = "identity")
-    
-    plot3 <- ggplot(data[countriesSelected, ],
-                    aes(x=Country, y=Literacy)) +geom_bar(stat = "identity")
-    plot4 <- ggplot(data[countriesSelected, ],
-                    aes(x=Country, y=NetMigration)) +geom_bar(stat = "identity")
-    grid.arrange(plot1,plot2,plot3,plot4, nrow = 2, ncol=2)
-    
-  })
-  ###########################################################################################
   ##Functions for the second tab: Classification by regions
   
   output$regions=renderPlot({
@@ -274,6 +274,30 @@ server <- function(input, output) {
 
   ##Functions for the second tab ends
   ###########################################################################################
+  
+  
+  ###########################################################################################
+  ##Functions for the third tab: Classification by countries
+  output$country1 <- renderPlot({
+    
+    
+    countriesSelected<-(data$Country == input$countrySelector1)|(data$Country == input$countrySelector2)|
+      (data$Country == input$countrySelector3)|(data$Country == input$countrySelector4)|(data$Country == input$countrySelector5)
+    plot1<-ggplot(data[countriesSelected, ],
+                  aes(x=Country, y=GDP)) +geom_bar(stat = "identity")
+    
+    plot2<-ggplot(data[countriesSelected, ],
+                  aes(x=Country, y=Population)) +geom_bar(stat = "identity")
+    
+    plot3 <- ggplot(data[countriesSelected, ],
+                    aes(x=Country, y=Literacy)) +geom_bar(stat = "identity")
+    plot4 <- ggplot(data[countriesSelected, ],
+                    aes(x=Country, y=NetMigration)) +geom_bar(stat = "identity")
+    grid.arrange(plot1,plot2,plot3,plot4, nrow = 2, ncol=2)
+    
+  })
+  ###########################################################################################
+  
   
 }
 
