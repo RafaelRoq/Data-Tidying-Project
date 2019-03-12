@@ -41,9 +41,16 @@ ui <- navbarPage("Countries of the World",
         
         
         tabsetPanel(type = "tabs",
-                    tabPanel("Plot", plotOutput("histPlot")),
-                    tabPanel("Summary", verbatimTextOutput("histSummary")),
-                    tabPanel("Table", tableOutput("histTable")))
+                    #tabPanel("Plot", plotOutput("histPlot")),
+                    tabPanel("Summary",
+                             selectInput(inputId="summaryChoices1",label = "Summary",
+                                         choices = colnames(data[,!(colnames(data) %in% c("Country","Region"))])),
+                             selectInput(inputId="summaryChoices2",label = "Summary",
+                                         choices = colnames(data[,!(colnames(data) %in% c("Country","Region"))]), selected="PopDens"),
+                             selectInput(inputId="summaryChoices3",label = "Summary",
+                                         choices = colnames(data[,!(colnames(data) %in% c("Country","Region"))]), selected="Area"),
+                             verbatimTextOutput("Summary")),
+                    tabPanel("Table", tableOutput("Table")))
          )
        ) #mainPanel
      ), #tabPage
@@ -99,10 +106,10 @@ ui <- navbarPage("Countries of the World",
               useShinyjs(),  # Set up shinyjs
               sidebarPanel(
               selectInput(inputId="countrySelector1",label = "Select country to display",choices = unique(data$Country)),
-              selectInput(inputId="countrySelector2",label=NULL,choices = unique(data$Country)),
-              selectInput(inputId="countrySelector3",label=NULL,choices = unique(data$Country)),
-              selectInput(inputId="countrySelector4",label=NULL,choices = unique(data$Country)),
-              selectInput(inputId="countrySelector5",label=NULL,choices = unique(data$Country))
+              selectInput(inputId="countrySelector2",label=NULL,choices = unique(data$Country), selected="Albania"),
+              selectInput(inputId="countrySelector3",label=NULL,choices = unique(data$Country), selected="Algeria"),
+              selectInput(inputId="countrySelector4",label=NULL,choices = unique(data$Country), selected="American Samoa"),
+              selectInput(inputId="countrySelector5",label=NULL,choices = unique(data$Country), selected="Andorra")
               ),
               # Show a plot of the generated distribution
               mainPanel(
@@ -309,7 +316,9 @@ server <- function(input, output) {
     
   })
   ###########################################################################################
-  
+  output$Summary <- renderPrint(summary(data[,(colnames(data) %in% c(input$summaryChoices1,
+                                                                      input$summaryChoices2, input$summaryChoices3))]))
+  output$Table <- renderTable(data)
   
 }
 
