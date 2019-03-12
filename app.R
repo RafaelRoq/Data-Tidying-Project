@@ -90,12 +90,13 @@ ui <- navbarPage("Countries of the World",
    tabPanel("Classification by countries",
             fluidPage( 
               useShinyjs(),  # Set up shinyjs
-              selectInput(inputId="countrySelector1",label = h3("Select country to display"),choices = unique(data$Country)),
+              sidebarPanel(
+              selectInput(inputId="countrySelector1",label = "Select country to display",choices = unique(data$Country)),
               selectInput(inputId="countrySelector2",label=NULL,choices = unique(data$Country)),
               selectInput(inputId="countrySelector3",label=NULL,choices = unique(data$Country)),
               selectInput(inputId="countrySelector4",label=NULL,choices = unique(data$Country)),
-              selectInput(inputId="countrySelector5",label=NULL,choices = unique(data$Country)),
-              
+              selectInput(inputId="countrySelector5",label=NULL,choices = unique(data$Country))
+              ),
               # Show a plot of the generated distribution
               mainPanel(
                 plotOutput(outputId = "country1")
@@ -104,10 +105,6 @@ ui <- navbarPage("Countries of the World",
    ),#tabPanel
    ###########################################################################################
    
-   ##References tab
-   tabPanel("References",
-            includeMarkdown("references.md")
-   ), #tabPanel
    
    tabPanel("Case study",
             fluidPage(
@@ -115,7 +112,15 @@ ui <- navbarPage("Countries of the World",
                 textInput("test1",label=NULL)
               )
             )
+   ), #tabPanel
+   
+   
+   ##References tab
+   tabPanel("References",
+            includeMarkdown("references.md")
    ) #tabPanel
+   
+   
 )
 # Define server logic required to draw a histogram
 server <- function(input, output) {
