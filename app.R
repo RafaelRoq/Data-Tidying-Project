@@ -27,10 +27,10 @@ categories_worldMap <- c("Population","PopDens","NetMigration", "InfantMortality
 # Define UI for application that draws a histogram
 ui <- navbarPage("Countries of the World",
                  
-   includeCSS("design.css"),
    ##First tab panel: Global map
    tabPanel("Overview of the data",
      fluidPage( 
+       includeCSS("design.css"),
        useShinyjs(),  # Set up shinyjs
        
        # Show a plot of the generated distribution
