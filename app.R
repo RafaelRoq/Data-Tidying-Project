@@ -46,7 +46,7 @@ ui <- navbarPage("Countries of the World",
        # Show a plot of the generated distribution
        mainPanel(
         h3("This dataset describes some interesting topics (such as the demography, 
-           climate, or economic) of 227 countries"),
+           literacy, or economic) of 227 countries"),
         
         
         
@@ -59,8 +59,10 @@ ui <- navbarPage("Countries of the World",
                                          choices = colnames(data[,!(colnames(data) %in% c("Country","Region"))]), selected="PopDens"),
                              selectInput(inputId="summaryChoices3",label = "Summary",
                                          choices = colnames(data[,!(colnames(data) %in% c("Country","Region"))]), selected="Area"),
+                             selectInput(inputId="summaryChoices4",label = "Summary",
+                                         choices = colnames(data[,!(colnames(data) %in% c("Country","Region"))]), selected="NetMigration"),
                              verbatimTextOutput("Summary")),
-                    tabPanel("Table", tableOutput("Table")))
+                    tabPanel("Table", DT::dataTableOutput("Table")))
          )
        ) #mainPanel
      ), #tabPage
@@ -336,8 +338,10 @@ server <- function(input, output) {
   })
   ###########################################################################################
   output$Summary <- renderPrint(summary(data[,(colnames(data) %in% c(input$summaryChoices1,
-                                                                      input$summaryChoices2, input$summaryChoices3))]))
-  output$Table <- renderTable(data)
+                                                                      input$summaryChoices2, input$summaryChoices3,input$summaryChoices4))]))
+  output$Table <- DT::renderDataTable(DT::datatable({
+    data
+  }))
   
 }
 
