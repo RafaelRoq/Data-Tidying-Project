@@ -120,8 +120,8 @@ ui <- navbarPage("Countries of the World",
               selectInput(inputId="countrySelector1",label = "Select country to display",choices = unique(data$Country)),
               selectInput(inputId="countrySelector2",label=NULL,choices = unique(data$Country), selected="Albania"),
               selectInput(inputId="countrySelector3",label=NULL,choices = unique(data$Country), selected="Algeria"),
-              selectInput(inputId="countrySelector4",label=NULL,choices = unique(data$Country), selected="American Samoa"),
-              selectInput(inputId="countrySelector5",label=NULL,choices = unique(data$Country), selected="Andorra")
+              selectInput(inputId="countrySelector4",label=NULL,choices = unique(data$Country), selected="Angola"),
+              selectInput(inputId="countrySelector5",label=NULL,choices = unique(data$Country), selected="Australia"), width=3
               ),
               # Show a plot of the generated distribution
               mainPanel(
@@ -324,15 +324,15 @@ server <- function(input, output) {
     countriesSelected<-(data$Country == input$countrySelector1)|(data$Country == input$countrySelector2)|
       (data$Country == input$countrySelector3)|(data$Country == input$countrySelector4)|(data$Country == input$countrySelector5)
     plot1<-ggplot(data[countriesSelected, ],
-                  aes(x=Country, y=GDP)) +geom_bar(stat = "identity")
+                  aes(x=Country, y=GDP, fill=Country)) +geom_bar(stat = "identity")+theme(axis.text=element_text(size=8))
     
     plot2<-ggplot(data[countriesSelected, ],
-                  aes(x=Country, y=Population)) +geom_bar(stat = "identity")
+                  aes(x=Country, y=Population, fill=Country)) +geom_bar(stat = "identity")+theme(axis.text=element_text(size=8))
     
     plot3 <- ggplot(data[countriesSelected, ],
-                    aes(x=Country, y=Literacy)) +geom_bar(stat = "identity")
+                    aes(x=Country, y=Literacy, fill=Country)) +geom_bar(stat = "identity")+theme(axis.text=element_text(size=8))
     plot4 <- ggplot(data[countriesSelected, ],
-                    aes(x=Country, y=NetMigration)) +geom_bar(stat = "identity")
+                    aes(x=Country, y=NetMigration, fill=Country)) +geom_bar(stat = "identity")+theme(axis.text=element_text(size=8))
     grid.arrange(plot1,plot2,plot3,plot4, nrow = 2, ncol=2)
     
   })
