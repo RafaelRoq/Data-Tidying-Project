@@ -53,15 +53,19 @@ ui <- navbarPage("Countries of the World",
         tabsetPanel(type = "tabs",
                     #tabPanel("Plot", plotOutput("histPlot")),
                     tabPanel("Summary",
-                             selectInput(inputId="summaryChoices1",label = "Summary",
+                             
+                             selectInput(inputId="summaryChoices1",label = "Select the variables you want to study",
                                          choices = colnames(data[,!(colnames(data) %in% c("Country","Region"))])),
-                             selectInput(inputId="summaryChoices2",label = "Summary",
+                             selectInput(inputId="summaryChoices2",label = NULL,
                                          choices = colnames(data[,!(colnames(data) %in% c("Country","Region"))]), selected="PopDens"),
-                             selectInput(inputId="summaryChoices3",label = "Summary",
+                             selectInput(inputId="summaryChoices3",label = NULL,
                                          choices = colnames(data[,!(colnames(data) %in% c("Country","Region"))]), selected="Area"),
-                             selectInput(inputId="summaryChoices4",label = "Summary",
+                             selectInput(inputId="summaryChoices4",label = NULL,
                                          choices = colnames(data[,!(colnames(data) %in% c("Country","Region"))]), selected="NetMigration"),
                              verbatimTextOutput("Summary")),
+                    
+                    
+                    
                     tabPanel("Table", DT::dataTableOutput("Table")))
          )
        ) #mainPanel
