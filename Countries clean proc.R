@@ -2,7 +2,9 @@
 library(rworldmap)
 
 
-data <- read.csv("countries of the world.csv")
+library(RCurl)
+x <- getURL("https://raw.githubusercontent.com/Waffy21/Data-Tidying-Project/master/countries_of_the_world.csv")
+data <- read.csv(text = x)
 
 ##First clean the data
 ##Tidy the names of the columns
