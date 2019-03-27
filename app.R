@@ -95,9 +95,9 @@ ui <- navbarPage("Countries of the World",
               sidebarLayout(
                 sidebarPanel(
               selectInput(inputId="region1",label = "Region 1",choices = unique(data$Region)),
-              selectInput(inputId="region2",label="Region 2",choices = unique(data$Region)),
-              selectInput(inputId="region3",label="Region 3",choices = unique(data$Region)),
-              selectInput(inputId="region4",label="Region 4 ",choices = unique(data$Region))
+              selectInput(inputId="region2",label="Region 2",choices = unique(data$Region), selected="EASTERN EUROPE"),
+              selectInput(inputId="region3",label="Region 3",choices = unique(data$Region), selected="NORTHERN AFRICA"),
+              selectInput(inputId="region4",label="Region 4 ",choices = unique(data$Region), selected="OCEANIA")
                 ),
               
               # Show a plot of the generated distribution
