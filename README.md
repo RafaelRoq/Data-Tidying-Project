@@ -10,8 +10,8 @@ Data Tidying and Reporting
 2018/19
 
 ##Team members
-Josué Cerpa Araña
-Rafael Monsalve Roquero
+Josué Cerpa
+Rafael Monsalve
 
 ##GitHub repository url
 https://github.com/Waffy21/Data-Tidying-Project
