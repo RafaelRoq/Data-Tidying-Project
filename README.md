@@ -1,3 +1,21 @@
+# Data-Tidying-Project
+
+##Master Title:
+Master in Statistics for Data Science
+
+##Course title
+Data Tidying and Reporting
+
+##Year
+2018/19
+
+##Team members
+Josue Cerpa
+Rafael Monsalve
+
+##GitHub repository url
+https://github.com/Waffy21/Data-Tidying-Project
+
 #Countries of the world
 
 In the world we live, despite of its big diversity, we can find a serie of common characteristics which allow us to get useful information about the situation of a country.
