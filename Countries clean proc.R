@@ -78,7 +78,7 @@ data$Country <- as.factor(data$Country)
 myWorldMap <- joinCountryData2Map(dataForMap, nameJoinColumn = "Country", joinCode="NAME",verbose = TRUE)
 
 
-mapCountryData(myWorldMap, nameColumnToPlot = "Population")
+mapCountryData(myWorldMap,mapTitle="World Map", catMethod="quantiles")
 
 levels(data$Country)=gsub(" $","",levels(data$Country)) 
 levels(data$Region)=c("ASIA (EX. NEAR EAST)","BALTICS","C.W. OF IND. STATES",

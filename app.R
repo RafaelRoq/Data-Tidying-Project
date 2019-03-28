@@ -85,7 +85,7 @@ ui <- navbarPage("Countries of the World",
       # Show a plot of the generated distribution
               mainPanel(
                 actionButton("btn", "What is each variable?"),
-                plotOutput("worldMap", height="700px", width="800px"),
+                plotOutput("worldMap", height="500px", width="750px"),
                  #tabsetPanel
                 hidden( ##Hidden text by default, make it visible with toggle()
                   verbatimTextOutput("factorExplanation")
