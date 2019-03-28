@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 In the world we live, despite of its big diversity, we can find a serie of common characteristics which allow us to get useful information about the situation of a country.
 
-The goal of this App is trying to show an interactive perspective about these characteristics, such as demographics, geographics, politicals, economicals, culturals or others, respecting* the different countries of the world
+The goal of this App is trying to show an interactive perspective about these characteristics, such as demographics, geographics, politicals, economicals, culturals or others, respecting the different countries of the world
 
 The app is composed by four main tabs:
 
