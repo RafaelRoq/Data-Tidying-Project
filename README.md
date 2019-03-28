@@ -10,7 +10,7 @@ Data Tidying and Reporting
 2018/19
 
 ##Team members
-Josué Cerpa
+Josue Cerpa
 Rafael Monsalve
 
 ##GitHub repository url
