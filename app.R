@@ -34,7 +34,8 @@ ui <- navbarPage("Countries of the World",
             fluidPage(
               mainPanel(
                 textInput("test1",label=NULL)
-              )
+              ),
+              downloadButton("report", "Generate report")
             )
    ), #tabPanel
    
@@ -346,6 +347,26 @@ server <- function(input, output) {
   output$Table <- DT::renderDataTable(DT::datatable({
     data
   }))
+  
+  
+  
+  
+  
+  
+  output$report <- downloadHandler(
+    # For PDF output, change this to "report.pdf"
+    filename = "report.pdf",
+    content = function(file) {
+      tempReport <- file.path(tempdir(), "report.Rmd")
+      file.copy("report.Rmd", tempReport, overwrite = TRUE)
+
+      rmarkdown::render(tempReport, output_file = file,
+                        envir = new.env(parent = globalenv())
+      )
+    }
+  )
+  
+  
   
 }
 
