@@ -33,7 +33,15 @@ ui <- navbarPage("Countries of the World",
    tabPanel("Case study",
             fluidPage(
               mainPanel(
-                textInput("test1",label=NULL)
+                div(style="text-align:justify",h3("In the world we live, despite of its big diversity, we can find 
+                    a serie of common characteristics which allow us to get useful 
+                    information about the situation of a country."),
+                    
+                    h3("The goal of this App is trying to show an interactive perspective 
+                    about these characteristics, such as demographics, geographics, 
+                    politicals, economicals, culturals or others, respecting the 
+                    different countries of the world"))
+
               ),
               downloadButton("report", "Generate report")
             )
